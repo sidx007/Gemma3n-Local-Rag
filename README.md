@@ -3,7 +3,9 @@
 A modern, offline Retrieval-Augmented Generation (RAG) application that allows you to chat with your PDF documents using local AI models. Built with Python, Flask, and vanilla JavaScript with a beautiful glassmorphism UI.
 
 ![RAG Assistant Screenshot](https://img.shields.io/badge/RAG-Assistant-blue?style=for-the-badge&logo=ai&logoColor=white)
-
+![Screenshot](./images/Home screen.png)
+![Screenshot](./images/Create Project.png)
+![Screenshot](./images/Chat Screen.png)
 ## ✨ Features
 
 - **🔒 Fully Offline**: No data leaves your machine - complete privacy

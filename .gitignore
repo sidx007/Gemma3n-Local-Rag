@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+venv.bak/
+env.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Model files (large files, should be downloaded separately)
+models/
+*.gguf
+*.bin
+*.safetensors
+
+# Generated project data
+projects/
+amex/
+
+# Test/Sample PDFs (users should add their own)
+*.pdf
+p.pdf
+P2.pdf
+
+# Misc data files (training/test data)
+misc/data/
+misc/find_threshold.ipynb
+
+# Static assets that should be served from CDN or downloaded separately
+chatbot/static/
+
+# Environment and configuration files
+.env
+.env.local
+.env.*.local
+config.ini
+secrets.json
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+quick_test.py
+test_backend.py
+rag-app-clean.js
+
+# API Keys and secrets (extra protection)
+*api_key*
+*secret*
+*token*
+.secrets/
