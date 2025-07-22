@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline RAG Application</title>
+    <link rel="icon" href="../static/Interlinked Sign.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="rag-style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__title-container">
+                    <h1 class="header__title">RAG Assistant</h1>
+                </div>
+                <nav class="header__nav">
+                    <button class="btn btn--secondary" id="theme-toggle">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <div class="container">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <h2 class="hero__title">Offline RAG Assistant</h2>
+                    <p class="hero__subtitle">Create and manage your document collections for intelligent conversations</p>
+                </section>
+
+                <!-- Create Project Section -->
+                <section class="create-project-section">
+                    <button class="btn btn--primary create-project-btn" id="create-project-btn">
+                        <span class="btn__icon">+</span>
+                        Create New Project
+                    </button>
+                    <button class="btn btn--secondary" id="refresh-projects-btn">
+                        <span class="btn__icon">🔄</span>
+                        Refresh Projects
+                    </button>
+                </section>
+
+                <!-- Search and Filters -->
+                <section class="controls">
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            class="form-control search-input" 
+                            placeholder="Search projects..."
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <div class="filter-container">
+                        <div class="filter-buttons" id="filter-buttons">
+                            <!-- Filter buttons will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects Grid -->
+                <section class="projects-grid" id="projects-grid">
+                    <!-- Project cards will be populated by JavaScript -->
+                </section>
+
+                <!-- No Results Message -->
+                <div id="no-results" class="no-results hidden">
+                    <h3>No projects found</h3>
+                    <p>No project folders were found in the projects directory. Create RAG projects first, then refresh this page.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Page -->
+        <div id="chat-page" class="page hidden">
+            <div class="container">
+                <div class="chat-container">
+                    <!-- Chat Header -->
+                    <div class="chat-header">
+                        <div class="chat-project-info">
+                            <h2 class="chat-project-title" id="chat-project-title">Project Name</h2>
+                            <p class="chat-project-subtitle" id="chat-project-subtitle">Chat with your documents</p>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn btn--secondary" id="clear-chat-btn" title="Clear Chat">
+                                <span class="btn__icon">🗑️</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-message system-message">
+                            <div class="message-content">
+                                <p>Welcome! I'm ready to help you with questions about your documents. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-section">
+                        <div class="chat-input-container">
+                            <textarea 
+                                id="chat-input" 
+                                class="chat-input" 
+                                placeholder="Ask me anything about your documents..."
+                                rows="1"
+                            ></textarea>
+                            <button class="btn btn--primary chat-send-btn" id="send-btn" disabled>
+                                <span class="btn__icon">→</span>
+                            </button>
+                        </div>
+                        <div class="chat-input-info">
+                            <span class="typing-indicator hidden" id="typing-indicator">AI is typing...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="back-button" title="Back to Projects">&larr;</button>
+        </div>
+
+        <!-- Create Project Modal -->
+        <div id="create-project-modal" class="modal-overlay hidden">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Create New Project</h3>
+                    <button class="modal-close" id="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-project-form">
+                        <div class="form-group">
+                            <label for="project-name" class="form-label">Project Name</label>
+                            <input type="text" id="project-name" class="form-control" placeholder="Enter project name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="project-description" class="form-label">Description</label>
+                            <textarea id="project-description" class="form-control" placeholder="Briefly describe your project" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="project-category" class="form-label">Category</label>
+                            <select id="project-category" class="form-control">
+                                <option value="Research">Research</option>
+                                <option value="Documentation">Documentation</option>
+                                <option value="Knowledge Base">Knowledge Base</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="project-files" class="form-label">PDF Documents</label>
+                            <input type="file" id="project-files" class="form-control file-input" 
+                                   accept=".pdf" multiple required>
+                            <div class="file-input-help">
+                                Select one or more PDF documents to include in this RAG project.
+                            </div>
+                            <div id="selected-files" class="selected-files">
+                                <!-- Selected files will be displayed here -->
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--secondary" id="cancel-create">Cancel</button>
+                            <button type="submit" class="btn btn--primary">Create Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 RAG Assistant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="rag-app.js"></script>
+</body>
+</html>
